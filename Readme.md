@@ -1,8 +1,4 @@
-![Terminal](images/bash-1.svg)
-![json](images/json.svg)
-![sql](images/microsoft-sql-server.svg)
-![php](images/php.svg)
-![python](images/python-5.svg)
+![Images](images/icons.jpg)
 ## SQL server Code for Projects
 
 This is a space dedicated for SQL Server code provided or explained in the blog,
