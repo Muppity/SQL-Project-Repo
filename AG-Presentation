@@ -1,0 +1,4 @@
+#mostrar version de linux
+uname -a -r
+whoami
+ls /opt/
