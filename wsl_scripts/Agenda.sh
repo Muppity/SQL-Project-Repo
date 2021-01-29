@@ -32,7 +32,7 @@ docker image ls
 #Create a  Container with volume option 
 docker run -d -p 1433:1433 --name Daltanious --privileged -it -e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y"\
 --volume /mnt/c/Users/Beralios/Desktop/SQLBackups:/mnt/share\
--e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" d04f
+-e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" 
 
 #Create a shared volume
 docker volume create shared-vol
@@ -44,9 +44,17 @@ docker volume inspect shared-vol2019
 #Create Container with mount using shared volume created 2017
 docker run -p 1433:1433 --name daltanious2 --privileged -it\
  --mount type=bind,src="shared-vol",dst="/mnt/SQL"\
- -v -e "SA_PASSWORD=clave01*" -e "ACCEPT_EULA=Y" -d d04f
+ -v -e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" -d 3149 
 
-
+docker run -d \
+  -it \
+  --name daltanious2 \
+  --privileged -it \
+  --mount source=shared-vol,target=/mnt/SQL \
+  -p 1433:1433 \
+  -e 'ACCEPT_EULA=Y' \
+  -e 'MSSQL_SA_PASSWORD=Clave01*' \
+  3149
 
 #Create Container with mount using shared volume created 2019
 docker run -d -p 1433:1433 --name irongear --privileged -it\
@@ -88,7 +96,7 @@ tail operations*
 #execute SQLCMD
 
 #check server running
-docker exec -it Daltanious  /opt/mssql-tools/bin/sqlcmd  -Usa -PClave01* -Q "select @@servername,@@version"  -t10   -y5000 
+docker exec -it daltanious2  /opt/mssql-tools/bin/sqlcmd  -Usa -PClave01* -Q "select @@servername,@@version"  -t10   -y5000 
 
 ##Refresh Databases
 sh Refresh.sh
