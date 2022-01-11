@@ -30,9 +30,13 @@ tail -n 4 /etc/mtab
 docker image ls
 
 #Create a  Container with volume option 
-docker run -d -p 1433:1433 --name Daltanious --privileged -it -e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y"\
---volume /mnt/c/Users/Beralios/Desktop/SQLBackups:/mnt/share\
--e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" 
+docker run -d -p 1433:1433 --name daltanious --privileged -it -e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" --volume sqlvolume --mount 'type=bind,src=/Users/carloslopez/Desktop/Reports,dst=/mnt/sql'  -e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" 6db3
+
+
+docker run --help
+
+
+
 
 #Create a shared volume
 docker volume create shared-vol
@@ -43,14 +47,14 @@ docker volume inspect shared-vol2019
 
 #Create Container with mount using shared volume created 2017
 docker run -p 1433:1433 --name daltanious2 --privileged -it\
- --mount type=bind,src="shared-vol",dst="/mnt/SQL"\
+ --mount 'type=bind,src="shared-vol",dst="/mnt/SQL"'\
  -v -e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" -d 3149 
 
 docker run -d \
   -it \
   --name daltanious2 \
   --privileged -it \
-  --mount source=shared-vol,target=/mnt/SQL \
+  --mount 'source=shared-vol,target=/mnt/SQL' \
   -p 1433:1433 \
   -e 'ACCEPT_EULA=Y' \
   -e 'MSSQL_SA_PASSWORD=Clave01*' \
@@ -58,7 +62,7 @@ docker run -d \
 
 #Create Container with mount using shared volume created 2019
 docker run -d -p 1433:1433 --name irongear --privileged -it\
- --mount type=bind,src='shared-vol',dst='/mnt/SQL2019'\
+ --mount 'type=bind,src=shared-vol,dst=/mnt/SQL2019'\
  -e "ACCEPT_EULA=Y" d04f
 
 
@@ -66,7 +70,7 @@ docker run -d -p 1433:1433 --name irongear --privileged -it\
 
 #Create container without mount --only instance
 docker run -d -p 1433:1433 --name Steel --privileged -it -e "SA_PASSWORD=Clave01*" \
- -e "ACCEPT_EULA=Y" --mount type=bind,src='/mnt/c/Users/Beralios/Desktop', dst='/mnt/SQLBackups' d04f
+ -e "ACCEPT_EULA=Y" --mount 'type=bind,src=/mnt/c/Users/Beralios/Desktop, dst=/mnt/SQLBackups' d04f
 
 #Start Container
 docker start Daltanious
