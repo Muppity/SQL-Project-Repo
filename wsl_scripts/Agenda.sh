@@ -29,8 +29,11 @@ tail -n 4 /etc/mtab
 #inspect available images
 docker image ls
 
-#Create a  Container with volume option 
-docker run -d -p 1433:1433 --name daltanious --privileged -it -e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" --volume sqlvolume --mount 'type=bind,src=/Users/carloslopez/Desktop/Reports,dst=/mnt/sql'  -e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" 6db3
+#Create a  Container with volume option and mount
+docker run -d -p 1433:1433 --name daltanious --privileged -it -e "SA_PASSWORD=Clave01*" \
+ -e "ACCEPT_EULA=Y" --volume sqlvolume 
+ --mount 'type=bind,src=/Users/carloslopez/Desktop/Reports,dst=/mnt/sql' \
+  -e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" 6db3
 
 
 docker run --help
