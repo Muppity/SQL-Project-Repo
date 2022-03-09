@@ -31,7 +31,7 @@ docker image ls
 
 #Create a  Container with volume option and mount
 docker run -d -p 1433:1433 --name daltanious --privileged -it -e "SA_PASSWORD=Clave01*" \
- -e "ACCEPT_EULA=Y" --volume sqlvolume 
+ -e "ACCEPT_EULA=Y" --volume sqlvolume \
  --mount 'type=bind,src=/Users/carloslopez/Desktop/Reports,dst=/mnt/sql' \
   -e "SA_PASSWORD=Clave01*" -e "ACCEPT_EULA=Y" 6db3
 
